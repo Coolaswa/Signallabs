@@ -1,4 +1,4 @@
-function [ output_args ] = plotcool( nx, x, nx, y )
+function [ output_args ] = plotcool( nx, x, ny, y )
 %PLOTCOOL Summary of this function goes here
 %  Detailed explanation goes here
     stem(nx,x);

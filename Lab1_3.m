@@ -1,3 +1,4 @@
+close all;
 %a) L should equal 5, so that the h[n] equals 1 when n=0,1,2 and equals
 %zero elsewhere.
 
@@ -14,6 +15,4 @@ nh = -5:-3;
 [ny,y] = convcool(nx, x, nh, h);
 [ny_causal,y_causal] = convcool(nx, x, nh_causal, h);
 
-stem(ny,y);
-hold on;
-stem(ny_causal,y_causal);
+plotcool(ny, y, ny_causal, y_causal);
