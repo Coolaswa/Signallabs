@@ -10,5 +10,10 @@ stem(nx,x);
 hold on;
 stem(ny,y);
 
-%% Assignment 2: fFade-in and -out of convolution
-nh
+%% Assignment 2: Fade-in and -out of convolution
+%a
+%the length should be equal to N + M -1
+
+%b sample n =[1:8] have no fade-in and fade-out
+
+%% Assignment 4: Frequency response
