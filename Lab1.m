@@ -25,22 +25,24 @@ xlabel('n');
 
 %% Assignment 4: Frequency response
 figure;
+N = 100;
 nh = [-1 0 1];
-h = [ 0.5 1 0.5];
-y = fft(h);
+h = [0.5 1 0.5];
+y = fft(h,N);
+theta = -pi:2*pi/99:pi;
 m = abs(y);                               % Magnitude
 p = unwrap(angle(y));                     % Phase
 
 f = (0:length(y)-1)*1/length(y);        % Frequency vector
 
 subplot(2,1,1)
-plot(f,m)
-title('Magnitude')
+plot(theta,m)
+title('Magnitude');
 ax = gca;
-ax.XTick = [15 40 60 85];
+ax.XTick = [-pi,-pi/2,0,pi/2,pi];
 
 subplot(2,1,2)
-plot(f,p*180/pi)
+plot(theta,p*180/pi)
 title('Phase')
 ax = gca;
-ax.XTick = [15 40 60 85];
+ax.XTick = [-pi,-pi/2,0,pi/2,pi];
