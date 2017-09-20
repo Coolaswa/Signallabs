@@ -21,28 +21,50 @@ xlabel('n');
 
 %b sample n =[1:8] have no fade-in and fade-out
 
-
-
 %% Assignment 4: Frequency response
 figure;
-N = 100;
+N = 1000;
 nh = [-1 0 1];
 h = [0.5 1 0.5];
-y = fft(h,N);
-theta = -pi:2*pi/99:pi;
-m = abs(y);                               % Magnitude
-p = unwrap(angle(y));                     % Phase
+H = FTD(nh,h,N);
+plotMagPhase(H,N);
 
-f = (0:length(y)-1)*1/length(y);        % Frequency vector
+%% Assignment 5: Frequency response of causal filter
+% a&b)
+N = 1000;
+nhcausal = [0 1 2];
+hcausal = [0.5 1 0.5];
+Hcausal = FTD(nhcausal, hcausal, N);
+plotMagPhase(Hcausal,N);
 
-subplot(2,1,1)
-plot(theta,m)
-title('Magnitude');
-ax = gca;
-ax.XTick = [-pi,-pi/2,0,pi/2,pi];
+%c) the only difference is the phase difference
 
-subplot(2,1,2)
-plot(theta,p*180/pi)
-title('Phase')
-ax = gca;
-ax.XTick = [-pi,-pi/2,0,pi/2,pi];
+%% Assignment 8: Sampling a sinusoidal signal
+figure;
+f=3200; A = 1; phi = 0; fs = 4000;
+N = 1000*1/f*fs; %%100 periods
+n = 0:(N-1);
+theta = 2*pi*(f/fs);
+x = A*sin(theta.*n+phi);
+stem(1/fs.*n,x);
+hold on;
+t = 0:0.000001:10;
+plot(t,A*sin(2*pi*f.*t+phi));
+xlim([0 1/f*2]);
+grid on;
+soundsc(x,fs);
+
+%% Assignment 9: Visualization of 'aliasing' via time domain
+clear all;
+fs = 0.5;
+f1 = 0.2; f2 = 0.7; f3 = 1.2;
+phi = pi/4;
+t = 0:0.001:1/f1;
+n = 0:length(0:1/fs:1/f1)-1;
+figure;
+plot(t,cos(2*pi.*f1.*t + phi));
+hold on;
+plot(t,cos(2*pi.*f2.*t + phi));
+plot(t,cos(2*pi.*f3.*t + phi));
+stem(n*1/fs,cos(2*pi*f1/fs.*n+phi));
+
