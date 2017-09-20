@@ -6,6 +6,8 @@ x = [1 0 1 0 1 0 1]; %start at n=-3, ends at n=3
 h = [-0.5 1 -0.5 ];
 y = conv(x,h);
 ny = linspace(nx(1) - 1, length(y)+nx(1)-1-1,length(y));
+
+figure('NumberTitle', 'off', 'Name', 'Assignment 1: Convolution');
 stem(nx,x);
 hold on;
 stem(ny,y);
@@ -21,8 +23,23 @@ xlabel('n');
 
 %b sample n =[1:8] have no fade-in and fade-out
 
+%% Assignment 3: Causality
+%a) L = 5;
+clear all;
+x = [1 0 1 0 1 0 1];
+nx = -3:3;
+
+h = [1 1 1];
+nh_causal = 0:2;
+nh = -5:-3;
+figure('NumberTitle', 'off', 'Name', 'Assignment 3: Causality');
+[ny,y] = convcool(nx, x, nh, h);
+[ny_causal,y_causal] = convcool(nx, x, nh_causal, h);
+
+plotcool(ny, y, ny_causal, y_causal);
+
 %% Assignment 4: Frequency response
-figure;
+figure('NumberTitle', 'off', 'Name', 'Assignment 4: Frequency Response');
 N = 1000;
 nh = [-1 0 1];
 h = [0.5 1 0.5];
@@ -31,16 +48,16 @@ plotMagPhase(H,N);
 
 %% Assignment 5: Frequency response of causal filter
 % a&b)
+figure('NumberTitle', 'off', 'Name', 'Assignment 5: Frequency response of causal filter');
 N = 1000;
 nhcausal = [0 1 2];
 hcausal = [0.5 1 0.5];
 Hcausal = FTD(nhcausal, hcausal, N);
 plotMagPhase(Hcausal,N);
-
 %c) the only difference is the phase difference
 
 %% Assignment 8: Sampling a sinusoidal signal
-figure;
+figure('NumberTitle', 'off', 'Name', 'Assignment 8: Sampling a sinusoidal signal');
 f=3200; A = 1; phi = 0; fs = 4000;
 N = 1000*1/f*fs; %%100 periods
 n = 0:(N-1);
@@ -61,7 +78,7 @@ f1 = 0.2; f2 = 0.7; f3 = 1.2;
 phi = pi/4;
 t = 0:0.001:1/f1;
 n = 0:length(0:1/fs:1/f1)-1;
-figure;
+figure('NumberTitle', 'off', 'Name', 'Assignment 9: Visualization of aliasing via time domain');
 plot(t,cos(2*pi.*f1.*t + phi));
 hold on;
 plot(t,cos(2*pi.*f2.*t + phi));

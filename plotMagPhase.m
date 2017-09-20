@@ -4,9 +4,8 @@ function [ output_args ] = plotMagPhase( freqResponse,N )
     theta = -pi:2*pi/(N-1):pi;
     m = abs(freqResponse);                               % Magnitude
     p = unwrap(angle(freqResponse));                     % Phase
-    figure(9);
     subplot(2,1,1);
-    hold on;
+    %hold on;
     plot(theta,m)
     title('Magnitude');
     ylabel('Magnitude [-]');
