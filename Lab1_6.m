@@ -5,8 +5,8 @@ clear all;
 
 % b. 
 n = -5:5;
-h_tilde = (1./(2*pi.*n)) .* sin((pi/3).*n);
-h_tilde(6) = 1/(2*pi);
+h_tilde = (1./(pi.*n)) .* sin((pi/3).*n);
+h_tilde(6) = 1/(pi);
 %stem(n,h_tilde);
 
 %c. 
