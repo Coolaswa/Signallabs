@@ -4,7 +4,7 @@ clear all; close all;
 K=2;
 N = 11;
 nh = -(N-1)/2:(N-1)/2;
-theta_c = pi/2;
+theta_c = pi/K;
 h = theta_c/pi*sinc(nh*theta_c/pi);
 
 %% downsampling
