@@ -8,13 +8,20 @@ y = conv(x,h);
 ny = linspace(nx(1) - 1, length(y)+nx(1)-1-1,length(y));
 
 figure('NumberTitle', 'off', 'Name', 'Assignment 1: Convolution');
-stem(nx,x);
-hold on;
+% subplot(2,1,1);
+% stem(nx,x);
+% hold on;
+% xlim([-4 4]);
+% ylim([-1.5 1.5]);
+% grid on;
+% legend('x[n]','h[n]');
+% xlabel('n');
+% subplot(2,1,2);
 stem(ny,y);
 xlim([min([nx,ny])-1 max([nx,ny])+1]);
 ylim([min([x,y])-0.5 max([x,y])+0.5]);
 grid on;
-legend('x[n]','h[n]');
+ylabel('y[n] = h[n]*x[n]');
 xlabel('n');
 
 %% Assignment 2: Fade-in and -out of convolution
@@ -35,8 +42,20 @@ nh = -5:-3;
 figure('NumberTitle', 'off', 'Name', 'Assignment 3: Causality');
 [ny,y] = convcool(nx, x, nh, h);
 [ny_causal,y_causal] = convcool(nx, x, nh_causal, h);
-
-plotcool(ny, y, ny_causal, y_causal);
+subplot(1,2,1);
+stem(ny_causal,y_causal);
+xlim([min(ny_causal)-1 max(ny_causal)+1]);
+ylim([min(y_causal)-0.5 max(y_causal)+0.5]);
+grid on;
+ylabel('y[n] = h_{causal}[n]*x[n]');
+xlabel('n');
+subplot(1,2,2);
+stem(ny,y);
+xlim([min(ny)-1 max(ny)+1]);
+ylim([min(y)-0.5 max(y)+0.5]);
+grid on;
+ylabel('y[n] = h[n]*x[n]');
+xlabel('n');
 
 %% Assignment 4: Frequency response
 figure('NumberTitle', 'off', 'Name', 'Assignment 4: Frequency Response');
