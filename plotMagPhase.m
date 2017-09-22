@@ -8,7 +8,8 @@ function [ output_args ] = plotMagPhase( freqResponse,N )
     %hold on;
     plot(theta,m)
     title('Magnitude');
-    ylabel('Magnitude [-]');
+    ylabel('|H_{causal}(e^{j\theta}| [-]');
+    xlabel('\theta [rad/s]');
     ax = gca;
     ax.XTick = [-pi,-pi/2,0,pi/2,pi];
     grid on;
@@ -16,7 +17,8 @@ function [ output_args ] = plotMagPhase( freqResponse,N )
     subplot(2,1,2)
     plot(theta,p)
     title('Phase')
-    ylabel('Phase [rad]');
+    ylabel('\phi_{H_{causal}}(e^{j\theta}) [rad]');
+    xlabel('\theta [rad/s]');
     ax = gca;
     ax.XTick = [-pi,-pi/2,0,pi/2,pi];
     grid on;
