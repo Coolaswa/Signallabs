@@ -32,3 +32,19 @@ audiowrite('out_up2.wav',y_out./max(y_out),fsin*2);
 y_out(1:2:(2*length(y))) = y;
 [~, y_out] = convcool(0:length(y_out),y_out,nh,h);
 audiowrite('out_up3.wav',y_out./max(y_out),fsin*2);
+
+function [ ny, y ] = convcool(nx, x, nh, h  )
+%CONVCOOL -> 
+%   Detailed explanation goes here
+    y = conv(x,h);
+    ny = linspace(nx(1) + nh(1), length(y)+nx(1) + nh(1) - 1,length(y));
+%     stem(nx,x);
+%     hold on;
+%     stem(ny,y);
+%     xlim([min([nx,ny])-1 max([nx,ny])+1]);
+%     ylim([min([x,y])-0.5 max([x,y])+0.5]);
+%     grid on;
+%     legend('x[n]','y[n]');
+%     xlabel('n');
+
+end

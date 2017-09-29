@@ -77,7 +77,7 @@ plotMagPhase(Hcausal,N);
 
 %% Assignment 8: Sampling a sinusoidal signal
 figure('NumberTitle', 'off', 'Name', 'Assignment 8: Sampling a sinusoidal signal');
-f=3200; A = 1; phi = 0; fs = 4000;
+f=800; A = 1; phi = 0; fs = 4000;
 N = 1000*1/f*fs; %%100 periods
 n = 0:(N-1);
 theta = 2*pi*(f/fs);
@@ -87,13 +87,16 @@ hold on;
 t = 0:0.000001:10;
 plot(t,A*sin(2*pi*f.*t+phi));
 xlim([0 1/f*2]);
+legend('x[n*Ts]', 'x_c(t)');
+xlabel('Time [s]');
 grid on;
 soundsc(x,fs);
+
 
 %% Assignment 9: Visualization of 'aliasing' via time domain
 clear all;
 fs = 0.5;
-f1 = 0.2; f2 = 0.7; f3 = 1.2;
+f1 = 0.2; f2 = 0.7; f3 = 0.3;
 phi = pi/4;
 t = 0:0.001:1/f1;
 n = 0:length(0:1/fs:1/f1)-1;
@@ -101,6 +104,9 @@ figure('NumberTitle', 'off', 'Name', 'Assignment 9: Visualization of aliasing vi
 plot(t,cos(2*pi.*f1.*t + phi));
 hold on;
 plot(t,cos(2*pi.*f2.*t + phi));
-plot(t,cos(2*pi.*f3.*t + phi));
+plot(t,cos(2*pi.*f3.*t - phi));
 stem(n*1/fs,cos(2*pi*f1/fs.*n+phi));
+legend('cos(2\pi0.2t + pi/4)','cos(2\pi0.7t + pi/4)','cos(2\pi0.3t - pi/4)','cos(2\pi0.4n + pi/4)','location','southeast');
+xlabel('Time [s]');
+grid on;
 
