@@ -114,3 +114,17 @@ theta = 0:2*pi/Nplot:((5*Nplot)-1)/(5*Nplot)*2*pi;
 subplot(2,3,5);
 plot(theta,abs(Xn));
 title('e');
+
+%% Assignment 16: Frequency plots of LPF
+clear all;
+
+for N = [5 11 101]
+    n = -(N-1)/2:1:(N-1)/2;
+    hn = 0.5 * sinc(pi.*n/2);
+    str = 'Assignment 16';
+    figure('NumberTitle', 'off', 'Name', str);
+    freqz(hn);
+end
+
+%% Assignment 17: Filter design for audio signals 1
+
