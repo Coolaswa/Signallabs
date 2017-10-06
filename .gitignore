@@ -23,4 +23,5 @@ octave-workspace
 
 *.wav
 !scale.wav
+!audio_sin.wav
 ~$*
