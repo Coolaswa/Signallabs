@@ -127,4 +127,12 @@ for N = [5 11 101]
 end
 
 %% Assignment 17: Filter design for audio signals 1
-
+clear all;
+[y, fs] = audioread('audio_sin.wav ');
+Y = fft(y);
+N = length(y);
+thetan = -pi:2*pi/(N-1):pi;
+plot(thetan/2/pi*fs,abs(fftshift(Y))); %fa = 8820Hz
+load('bandstopfilter.mat');
+yn = conv(y,Num);
+audiowrite('new.wav',yn./max(yn),fs);
