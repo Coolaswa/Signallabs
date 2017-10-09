@@ -25,10 +25,10 @@ x1n = sin(theta1.*n); x2n = sin(theta2.*n);
 X1n = fft(x1n); X2n = fft(x2n);
 theta = 0:2*pi/Na:(Na-1)/Na*2*pi;
 subplot(2,1,1);
-stem(theta,X1n);
+stem(theta,abs(X1n));
 grid on;
 subplot(2,1,2);
-stem(theta,X2n);
+stem(theta,abs(X2n));
 
 %This can be prevented by making the sample frequency in such a way that
 %all the frequencies in the spectrum are a multiple of the frequency
@@ -55,23 +55,29 @@ theta1 = 2*pi*f1/fs; theta2 = 2*pi*f2/fs;
 Na = ceil(0.89*2*pi/abs(theta1-theta2));
 n = 0:Na-1;
 xn = sin(theta1.*n) + sin(theta2.*n);
-Nplot = 1000;
+Nplot = 5*Na;
 Xn = fft(xn,Nplot);
-theta = 0:2*pi/Nplot:((5*Nplot)-1)/(5*Nplot)*2*pi;
+theta = -pi:2*pi/Nplot:(pi-1/Nplot*2*pi);%0:2*pi/Nplot:((Nplot)-1)/(Nplot)*2*pi;
+%theta(length(theta)/2:end) = theta(length(theta)/2:end) - 2*pi;
 subplot(2,3,1);
-plot(theta,abs(Xn));
+plot(theta,fftshift(abs(Xn)));
 title('b');
+xlabel('\theta [rad/s]');
+ylabel('|W(\theta) \ast X(\theta)|');
 grid on;
 %c)
 f1 = 185; f2 = 200; fs = 1000;
 theta1 = 2*pi*f1/fs; theta2 = 2*pi*f2/fs;
 subplot(2,3,2);
 xn = sin(theta1.*n) + sin(theta2.*n);
-Nplot = 1000;
+Nplot = 10*Na;
 Xn = fft(xn,Nplot);
-theta = 0:2*pi/Nplot:((5*Nplot)-1)/(5*Nplot)*2*pi;
-plot(theta,abs(Xn));
+theta = -pi:2*pi/Nplot:(pi-1/Nplot*2*pi);%0:2*pi/Nplot:((5*Nplot)-1)/(5*Nplot)*2*pi;
+plot(theta,fftshift(abs(Xn)));
 title('c')
+xlabel('\theta [rad/s]');
+ylabel('|W(\theta) \ast X(\theta)|');
+grid on;
 %d)
 f1 = 185; f2 = 200; fs = 1000;
 theta1 = 2*pi*f1/fs; theta2 = 2*pi*f2/fs;
@@ -80,39 +86,48 @@ n = 0:Nb-1;
 xn = sin(theta1.*n) + sin(theta2.*n);
 Nplot = 1000;
 Xn = fft(xn,Nplot);
-theta = 0:2*pi/Nplot:((5*Nplot)-1)/(5*Nplot)*2*pi;
+theta = -pi:2*pi/Nplot:(pi-1/Nplot*2*pi);
 subplot(2,3,3);
-plot(theta,abs(Xn));
+plot(theta,fftshift(abs(Xn)));
 title('d');
+xlabel('\theta [rad/s]');
+ylabel('|W(\theta) \ast X(\theta)|');
+grid on;
 
 %e)
-wn = (1-cos(2*pi/N.*n));
 f1 = 185; f2 = 200; fs = 1000;
 theta1 = 2*pi*f1/fs; theta2 = 2*pi*f2/fs;
 Nc = ceil(1.44*2*pi/abs(theta1-theta2));
-n = 0:Nb-1;
+n = 0:Nc-1;
+wn = (1-cos(2*pi/Nc.*n))/2;
 xn = sin(theta1.*n) + sin(theta2.*n);
 xn = wn.*xn;
-Nplot = 1000;
+Nplot = 5*Nc;
 Xn = fft(xn,Nplot);
-theta = 0:2*pi/Nplot:((5*Nplot)-1)/(5*Nplot)*2*pi;
+theta = -pi:2*pi/Nplot:(pi-1/Nplot*2*pi);%theta = 0:2*pi/Nplot:((5*Nplot)-1)/(5*Nplot)*2*pi;
 subplot(2,3,4);
-plot(theta,abs(Xn));
+plot(theta,fftshift(abs(Xn)));
 title('e');
+xlabel('\theta [rad/s]');
+ylabel('|W(\theta) \ast X(\theta)|');
+grid on;
 
 %f)
-wn = (1-cos(2*pi/N.*n));
 f1 = 185; f2 = 200; fs = 1000;
 theta1 = 2*pi*f1/fs; theta2 = 2*pi*f2/fs;
 Nc = ceil(1.44*2*pi/abs(theta1-theta2));
-n = 0:Nb-1;
+n = 0:Nc-1;
+wn = (1-cos(2*pi/Nc.*n));
 xn = sin(theta1.*n) + 0.35*sin(theta2.*n);
 xn = wn.*xn;
-Nplot = 1000;
+Nplot = 5*Nc;
 Xn = fft(xn,Nplot);
-theta = 0:2*pi/Nplot:((5*Nplot)-1)/(5*Nplot)*2*pi;
+theta = -pi:2*pi/Nplot:(pi-1/Nplot*2*pi);%theta = 0:2*pi/Nplot:((5*Nplot)-1)/(5*Nplot)*2*pi;
 subplot(2,3,5);
-plot(theta,abs(Xn));
+plot(theta,fftshift(abs(Xn)));
+xlabel('\theta [rad/s]');
+ylabel('|W(\theta) \ast X(\theta)|');
+grid on;
 title('e');
 
 %% Assignment 16: Frequency plots of LPF
@@ -133,6 +148,9 @@ Y = fft(y);
 N = length(y);
 thetan = -pi:2*pi/(N-1):pi;
 plot(thetan/2/pi*fs,abs(fftshift(Y))); %fa = 8820Hz
+xlabel('frequency [Hz]');
+ylabel('|X(\theta)|');
+grid on;
 load('bandstopfilter.mat');
 yn = conv(y,Num);
 audiowrite('new.wav',yn./max(yn),fs);
