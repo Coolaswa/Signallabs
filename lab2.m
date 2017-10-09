@@ -13,6 +13,8 @@ xn = ones(1,11);
 Xn = fft(xn,Na);
 n = 0:2*pi/Na:(Na-1)/Na*2*pi;
 stem(n,abs(Xn));
+legend('abs(X(e^{j0}))', 'abs(X[k])');
+title('Assignment 11: The DFT of a finite length discrete-time signal');
 
 %% Assignment 12: Spectrum of a sine wave of different frequencies
 clear all;
@@ -23,12 +25,17 @@ theta1 = 2*pi*f1/fs; theta2 = 2*pi*f2/fs;
 n = 0:(Na-1);
 x1n = sin(theta1.*n); x2n = sin(theta2.*n);
 X1n = fft(x1n); X2n = fft(x2n);
-theta = 0:2*pi/Na:(Na-1)/Na*2*pi;
+theta = -pi:2*pi/Na:(Na-1)/Na*pi;
 subplot(2,1,1);
 stem(theta,abs(X1n));
+title('DFT of x_{1}[n]');
 grid on;
+xlim([-3.5,3.5]);
 subplot(2,1,2);
 stem(theta,abs(X2n));
+grid on;
+title('DFT of x_{2}[n]');
+xlim([-3.5,3.5]);
 
 %This can be prevented by making the sample frequency in such a way that
 %all the frequencies in the spectrum are a multiple of the frequency
@@ -46,6 +53,8 @@ xn = ones(1,11);
 Xn = fft(xn,N);
 n = 0:2*pi/N:(N-1)/N*2*pi;
 stem(n,abs(Xn));
+legend('abs(X(e^{j0}))', 'abs(X[k])');
+title('Approximation of the FTD');
 
 %% Assignment 14: Calculating the minimum resolution of a spectrumclear all;
 %b) 
@@ -136,9 +145,9 @@ clear all;
 for N = [5 11 101]
     n = -(N-1)/2:1:(N-1)/2;
     hn = 0.5 * sinc(pi.*n/2);
-    str = 'Assignment 16';
-    figure('NumberTitle', 'off', 'Name', str);
+    figure('NumberTitle', 'off', 'Name', sprintf('Assignment 16, N = %d', N));
     freqz(hn);
+    title(sprintf('Spectrum of LPF of size %d',N));
 end
 
 %% Assignment 17: Filter design for audio signals 1
@@ -147,6 +156,7 @@ clear all;
 Y = fft(y);
 N = length(y);
 thetan = -pi:2*pi/(N-1):pi;
+figure('NumberTitle', 'off', 'Name', 'Assignment 17');
 plot(thetan/2/pi*fs,abs(fftshift(Y))); %fa = 8820Hz
 xlabel('frequency [Hz]');
 ylabel('|X(\theta)|');
