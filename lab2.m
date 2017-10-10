@@ -2,7 +2,7 @@ clear all; close all;
 
 %% Assignment 11: The DFT of a finite length discrete-time signal
 figure('NumberTitle', 'off', 'Name', 'Assignment 11: The DFT of a finite length discrete-time signal');
-theta = 0:0.001:2*pi;
+theta = -pi:0.001:pi;
 A = 1; K1 = 11/2; K2 = 1/2; K3 = 0;
 X = A.*sin(K1.*theta)./sin(K2.*theta).*exp(-1j*K3.*theta);
 plot(theta,abs(X));
@@ -11,10 +11,11 @@ hold on;
 Na = 11;
 xn = ones(1,11);
 Xn = fft(xn,Na);
-n = 0:2*pi/Na:(Na-1)/Na*2*pi;
-stem(n,abs(Xn));
+n = (-(Na-1)/2:(Na-1)/2)*2*pi/Na;
+stem(n,fftshift(abs(Xn)));
 legend('abs(X(e^{j0}))', 'abs(X[k])');
-title('Assignment 11: The DFT of a finite length discrete-time signal');
+xlabel('\theta [rad/s]');
+ylabel('|X(\theta|');
 
 %% Assignment 12: Spectrum of a sine wave of different frequencies
 clear all;
@@ -31,11 +32,15 @@ stem(theta,abs(X1n));
 title('DFT of x_{1}[n]');
 grid on;
 xlim([-3.5,3.5]);
+xlabel('\theta [rad/s]');
+ylabel('X_1(\theta)');
 subplot(2,1,2);
 stem(theta,abs(X2n));
 grid on;
 title('DFT of x_{2}[n]');
 xlim([-3.5,3.5]);
+xlabel('\theta [rad/s]');
+ylabel('X_1(\theta)');
 
 %This can be prevented by making the sample frequency in such a way that
 %all the frequencies in the spectrum are a multiple of the frequency
@@ -53,6 +58,8 @@ xn = ones(1,11);
 Xn = fft(xn,N);
 n = 0:2*pi/N:(N-1)/N*2*pi;
 stem(n,abs(Xn));
+xlabel('\theta [rad/s]');
+ylabel('|X(\theta)|');
 legend('abs(X(e^{j0}))', 'abs(X[k])');
 title('Approximation of the FTD');
 
