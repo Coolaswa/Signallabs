@@ -44,7 +44,8 @@ plot(1:100,rhohat);
 %% Assignment 22: Scatter plots
 n = 1:900;
 N = 10;
-yn = (x1n + (N-1) .* x2n)./N;
+xn = normrnd(0,1,1000,1);
+yn = 1/3.*([xn; 0; 0] + [0;xn;0] + [0;0;xn]);
 figure;
 for i = 1:4
     subplot(2,2,i);
@@ -68,5 +69,81 @@ stem(l,ry);
 hold on;
 rytheory = 1/9.*[zeros(1,8) 1 2 3 2 1 zeros(1,8)];
 stem(l,rytheory);
+
+% b) for l = 0, there is a maximum
+
+% c)
+Pxest = 0;
+l = -(L-1):(L-1);
+theta = 0:0.001:2*pi;
+for i = 1:length(l)
+    Pxest = Pxest + ry(i).*exp(-1j.*theta.*l(i));    
+end
+figure;
+plot(theta,abs(Pxest));
+hold on;
+plot(theta,1/9.*(3+4.*cos(theta)+2.*cos(2.*theta)));
+legend('estimation', 'theory');
+
+%% Assignment 24: Expression for cross-correlation
+%a) zie schrift
+%b) You can estimate the delay by measuring the signal and then calculating
+%the estimation of the autocorrelation.
+
+%% Assignment 25: Test cross-correlation function
+clear all;
+xn = normrnd(0,1,1000,1);
+zn = normrnd(0,1,1000,1);
+yn = xn + zn;
+l = -10:10;
+rxy = crosscor(xn,yn,l);
+figure;
+stem(l,rxy);
+
+%% Assignment 26: Estimate delay for radar data
+%a);
+load('radar.mat');
+n = 1:length(trans);
+plot(n,trans,n,received);
+
+%b)
+rx = [];
+for l = -100:100;
+    rx =[rx crosscor2(trans,trans,l)];
+end
+rxy = [];
+for l = -100:100
+    rxy = [rxy crosscor2(trans,received,l)];
+end
+l = -100:100;
+figure;
+stem(l,rx);
+hold on;
+stem(l,rxy);
+
+function ry = crosscor(x,y,l)
+    ry = 0;
+    M = length(x);
+    for n = 1:(M-abs(l))
+        ry = ry + 1./M.*x(n).*y(n+abs(l));
+    end
+end
+
+function ry = crosscor2(x,y,l)
+    ry = 0;
+    M = length(x);
+    if l > 0
+        for n = 1:(M-(l))
+            ry = ry + 1./M.*x(n).*y(n+(l));
+        end
+    else
+        for n = (abs(l)+1):(M)
+            ry = ry + 1/M.*x(n).*y(n+l);
+        end
+    end
+end
+
+
+
     
     
