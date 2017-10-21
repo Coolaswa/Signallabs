@@ -52,7 +52,12 @@ end;
 plot(1:100,rhohat);
 grid on;
 xlabel('N');
-ylabel('$\hat{\rho}_{x2,yN}[0]$','Interpreter','latex');
+N = 1:100;
+hold on;
+rho = (N-1)./N./sqrt(sigmax2);
+plot(N,rho);
+
+legend({'$\hat{\rho}_{x2,yN}[0]$','$\rho_{x2,yN}[0]$'},'Interpreter','latex');
 saveas(fig,'Assignment20b.png');
 
 % c) The different samples of the scatter plots are more on one line when
@@ -64,7 +69,6 @@ saveas(fig,'Assignment20b.png');
 
 %% Assignment 22: Scatter plots
 n = 1:900;
-N = 10;
 xn = normrnd(0,1,1000,1);
 yn = 1/3.*([xn; 0; 0] + [0;xn;0] + [0;0;xn]);
 fig = figure;
