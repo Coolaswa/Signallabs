@@ -184,6 +184,16 @@ xlabel('l');
 ylabel('r_{trans,received}[l]');
 grid on;
 saveas(fig,'Assignment26b.png');
+figure;
+subplot(2,1,1);
+test = abs(fft(trans));
+plot(test);
+subplot(2,1,2);
+ryy = [];
+for l = -100:100
+    ryy = [ryy crosscor2(received,received,l)];
+end
+stem(ryy);
 
 function ry = crosscor(x,y,l)
     ry = 0;
